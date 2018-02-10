@@ -23,7 +23,7 @@ import static bp96.project.UsefulMethod.nextPosZigZag;
 
 
 
-public class SoltoonShah extends Soltoon {
+public class SoltoonShahtest extends Soltoon {
 
     private ArrayList<Action> jobs = new ArrayList<Action>();
     private ArrayList<Integer> costs = new ArrayList<Integer>();
@@ -42,6 +42,9 @@ public class SoltoonShah extends Soltoon {
         int[] arr = new int[game.getMapHeight()*game.getMapWidth()];
         int[] inds = new int[game.getMapHeight()*game.getMapWidth()];
         jobs.clear();
+        posX.clear();
+        posY.clear();
+        costs.clear();
         for(int i = 0; i < game.getMapHeight(); i++)
         {
             for(int j = 0; j < game.getMapWidth(); j++)
@@ -91,7 +94,7 @@ public class SoltoonShah extends Soltoon {
     {
         for(int i = 0; i < game.getMapWidth(); i++)
             for(int j = 0; j < game.getMapHeight(); j++)
-                ml[i][j] = 0;
+                ml[j][i] = 0;
         Iterator iter = game.getKhadangs().entrySet().iterator();
         while (iter.hasNext()) {
             GameKhadang gKh = (GameKhadang)((Map.Entry) iter.next()).getValue();
@@ -139,38 +142,6 @@ public class SoltoonShah extends Soltoon {
 
         //GameSoltoon me = game.getSoltoon(getId());
         ml = new int[game.getMapHeight()][game.getMapWidth()];
-
-
-        int maxX = game.getMapWidth() - 1, maxY = game.getMapHeight() - 1;
-        int mon = GameConfiguration.DEFENCE_INITIAL_MONEY;
-        int x = 0, y = maxY;
-        int[] posArr = new int[2];
-        //System.out.println(mon);
-        while( mon > mon % 1000 + 2000)
-        {
-            jobs.add(new AddKhadang(new Shooter(KhadangType.CASTLE), x, y));
-            posX.add(x);
-            posY.add(y);
-            costs.add(KhadangType.CASTLE.getCost());
-            mon -= KhadangType.CASTLE.getCost();
-            posArr = nextPosZigZag(x,y, maxX, maxY);
-            x = posArr[0];
-            y = posArr[1];
-        }
-        //System.out.println(mon);
-        while(mon >= KhadangType.CANNON.getCost())
-        {
-            jobs.add(new AddKhadang(new Shooter(KhadangType.CANNON), x, y));
-            posX.add(x);
-            posY.add(y);
-            costs.add(KhadangType.CANNON.getCost());
-            mon -= KhadangType.CANNON.getCost();
-            posArr = nextPosZigZag(x,y, maxX, maxY);
-            x = posArr[0];
-            y = posArr[1];
-            //System.out.println(x + " : " + y);
-        }
-        //System.out.println(mon);
 
 
 
